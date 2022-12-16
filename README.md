@@ -10,21 +10,21 @@
 
 ---
 
-- 其中有3个是配置好可以直接运行的训练脚本：<br>
+- 其中有3个是配置好可以本地运行的训练脚本：<br>
 1. train_guowangtong512.py
 2. train_bigdata512_large_build_hornet.py
 3. train_bigdata512_base_build_hornet.py
 
-- 其中有2个是配置好可以直接运行的预测脚本。该脚本可以生成shp和单波段tif图像：<br>
+- 其中有2个是配置好可以本地运行的预测脚本。该脚本可以生成shp和单波段tif图像：<br>
 1. predict_120bigdata_build_512_large.py
 2. predict_guowangtong_build_512.py
 
 - 自定义数据的配置文件，我的数据都是基于VOC格式：<br>
-/config/__base__/datasets/guowangtong512.py
+1. /config/__base__/datasets/guowangtong512.py
 
 - 自定义网络结果配置文件:<br>
-/config/hornet/upernet_hornet_large_gf_512_160k_guowangtong.py
-/config/hornet/upernet_hornet_large_gf_512_160k_bigdata_build.py
+1. /config/hornet/upernet_hornet_large_gf_512_160k_guowangtong.py
+2. /config/hornet/upernet_hornet_large_gf_512_160k_bigdata_build.py
 
 ## Linux运行环境
 package|version
