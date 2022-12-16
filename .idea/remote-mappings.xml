@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteMappingsManager">
+    <list>
+      <list>
+        <remote-mappings server-id="python@sftp://liyi@192.168.2.191:22/home/liyi/anaconda3/envs/mmseg20/bin/python3.8">
+          <settings>
+            <list>
+              <mapping local-root="$PROJECT_DIR$" remote-root="/media/DATA/liyi/project/HorNet-master/semantic_segmentation" />
+            </list>
+          </settings>
+        </remote-mappings>
+        <remote-mappings server-id="python@sftp://liyi@192.168.2.191:22/home/liyi/anaconda3/envs/mmseg20_2/bin/python3.7" />
+      </list>
+    </list>
+  </component>
+</project>
