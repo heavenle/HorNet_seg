@@ -50,13 +50,13 @@ def main():
                         default=r'/media/DATA/liyi/project/1628',
                         help='Image file')
     parser.add_argument('--save_path',
-                        default=r'./outputgengdi',
+                        default=r'./outputgengdi_20230306',
                         help='Image file')
     parser.add_argument('--config',
                         default=r'./gengdi512/upernet_hornet_large_gf_512_160k_gengdi.py',
                         help='Config file')
     parser.add_argument('--checkpoint',
-                        default=r'/media/DATA/liyi/project/gengdi_predict/configAndWeight/iter_112000.pth',
+                        default=r'./gengdi512/iter_160000.pth',
                         help='Checkpoint file')
     parser.add_argument('--eval_m',
                         action="store_true",

@@ -8,25 +8,8 @@
 个人博客对于HorNet的讲解：<br>
 [Segmentation：HorNet 学习总结](https://blog.csdn.net/weixin_43610114/article/details/128145243)
 
----
 
-- 其中有3个是配置好可以本地运行的训练脚本：<br>
-1. train_guowangtong512.py
-2. train_bigdata512_large_build_hornet.py
-3. train_bigdata512_base_build_hornet.py
-
-- 其中有2个是配置好可以本地运行的预测脚本。该脚本可以生成shp和单波段tif图像：<br>
-1. predict_120bigdata_build_512_large.py
-2. predict_guowangtong_build_512.py
-
-- 自定义数据的配置文件，我的数据都是基于VOC格式：<br>
-1. /config/\__base\__/datasets/guowangtong512.py
-
-- 自定义网络结果配置文件:<br>
-1. /config/hornet/upernet_hornet_large_gf_512_160k_guowangtong.py
-2. /config/hornet/upernet_hornet_large_gf_512_160k_bigdata_build.py
-
-## Linux运行环境
+## 1. Linux运行环境
 package|version
 ---|---
 addict|                        2.4.0
@@ -76,26 +59,59 @@ wcwidth|                       0.2.5
 wheel|                         0.37.1
 yapf|                          0.32.0
 
-## 使用步骤
-1. 修改数据配置文件。
-> 例如：/config/__base__/datasets/guowangtong512.py
+## 2. 使用步骤
+### 2.1 自定义配置文件
+1.修改数据配置文件。
+> 例如：/config/\__base\__/datasets/dataset_common.py
+> 
+>示例：![1](img_rep/dataset.png)
+>
+>![1](img_rep/dataset2.png)
 
-2. 修改类别配置文件。
+2.修改类别配置文件。
 > 例如：/mmseg/datasets/build_voc.py
+> 
+>示例：![1](img_rep/voclabel.png)
 
-3. 修改训练网络配置文件。
-> 例如：/config/hornet/upernet_hornet_large_gf_512_160k_guowangtong.py
+3.修改训练网络配置文件。
+> 例如：/config/hornet/upernet_hornet_large_gf_512_160k_common.py
+> 
+>示例：![1](img_rep/model.png)
 
-4. 修改本地训练脚本
-> 例如：./train_guowangtong512.py
+4.修改本地训练脚本
+> 例如：./train_common.py
+> 
+>示例：![1](img_rep/train.png)
 
-5. 修改本地测试脚本（遥感）
-> 例如：./predict_120bigdata_build_512_large.py
+5.修改本地测试脚本（遥感）
+> 例如：./predict_common.py
+> 
+>示例：![1](img_rep/predict.png)
 
-## 预训练模型
 
-未上传
+### 2.2 已经配置好的代码参考
 
-## 已经训练好的权重
+---
+- 其中有4个是配置好可以本地运行的训练脚本：<br>
+1. train_guowangtong512.py
+2. train_bigdata512_large_build_hornet.py
+3. train_bigdata512_base_build_hornet.py
 
-未上传
+- 其中有3个是配置好可以本地运行的预测脚本。该脚本可以生成shp和单波段tif图像：<br>
+1. predict_120bigdata_build_512_large.py
+2. predict_guowangtong_build_512.py
+
+- 自定义数据的配置文件，我的数据都是基于VOC格式：<br>
+1. /config/\__base\__/datasets/guowangtong512.py
+
+- 自定义网络结果配置文件:<br>
+1. /config/hornet/upernet_hornet_large_gf_512_160k_guowangtong.py
+2. /config/hornet/upernet_hornet_large_gf_512_160k_bigdata_build.py
+
+
+## 3. 预训练模型
+
+预训练权重|百度云链接
+---|---
+hornet_large_7x7_in22k.pth<br>upernet_hornet_base_7x7.pth<br>upernet_hornet_large_gf.pth|[链接：https://pan.baidu.com/s/1ITqoX2A9jCcz-i_X_1nKqA 提取码：1234](https://pan.baidu.com/s/1ITqoX2A9jCcz-i_X_1nKqA)
+

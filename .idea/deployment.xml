@@ -1,39 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="liyi@192.168.2.191:22 password">
+  <component name="PublishConfigData" autoUpload="Always" serverName="randla">
     <serverData>
-      <paths name="liyi@192.168.2.191:22 password">
+      <paths name="randla">
         <serverdata>
           <mappings>
-            <mapping deploy="/media/DATA/liyi/project/HorNet-master/semantic_segmentation" local="$PROJECT_DIR$" />
+            <mapping deploy="/media/DATA/liyi/project/HorNet-master/semantic_segmentation" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
-      <paths name="liyi@192.168.2.191:22 password (1)">
+      <paths name="randla (1)">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="liyi@192.168.2.191:22 password (2)">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/media/DATA/liyi/project/HorNet-master/semantic_segmentation" local="$PROJECT_DIR$" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="liyi@192.168.2.191:22 password (3)">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/media/DATA/liyi/project/HorNet-master/semantic_segmentation" local="$PROJECT_DIR$" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="liyi@192.168.2.191:22 password (4)">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/media/DATA/liyi/project/HorNet-master/semantic_segmentation" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

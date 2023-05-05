@@ -2,7 +2,7 @@
 import argparse
 import copy
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 import os.path as osp
 import time
 import warnings
@@ -27,10 +27,10 @@ import decode_heads
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a segmentor')
     parser.add_argument('--config',
-                        default="./configs/hornet/upernet_hornet_large_gf_512_160k_gengdi.py",
+                        default="./configs/hornet/upernet_hornet_large_gf_512_160k_common.py",
                         help='train config file path')
     parser.add_argument('--work-dir',
-                        default='gengdi512',
+                        default='ZZ2m',
                         help='the dir to save logs and models')
     parser.add_argument(
         '--load-from',

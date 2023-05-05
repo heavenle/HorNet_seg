@@ -4,7 +4,9 @@ __data__ = "2022.5.9"
 __description__ = "predict road image and convert to vector"
 
 import os
+
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 from argparse import ArgumentParser
 
 from mmseg.apis import inference_segmentor, init_segmentor, show_result_pyplot
@@ -46,16 +48,16 @@ def tif2shp(outFile, outputPath):
 def main():
     parser = ArgumentParser()
     parser.add_argument('--img',
-                        default=r'/media/DATA/liyi/project/HorNet-master/semantic_segmentation/data',
+                        default=r'./data',
                         help='Image file')
     parser.add_argument('--save_path',
-                        default=r'./output_guowangtong_test_build_20221118',
+                        default=r'./output_MutilSize512',
                         help='Image file')
     parser.add_argument('--config',
-                        default=r'./GuoWangTong512_build_20221031/upernet_hornet_large_gf_512_160k_guowangtong.py',
+                        default=r'./MutilSize512/upernet_hornet_large_gf_512_160k_mutilsize.py',
                         help='Config file')
     parser.add_argument('--checkpoint',
-                        default=r'./GuoWangTong512_build_20221031/iter_160000.pth',
+                        default=r'./MutilSize512/iter_160000.pth',
                         help='Checkpoint file')
     parser.add_argument('--eval_m',
                         action="store_true",
@@ -80,11 +82,14 @@ def main():
         img_list += glob.glob(os.path.join(args.img, ex))
     for img_path in img_list:
         print("this img is :", img_path)
-        predict_big_test_img(model, img_path, args.palette, args.eval_m, args.save_path, args.need_gd, slide_window_size=512)
-        print("Start converting the img[{}] to vector....".format(os.path.splitext(os.path.basename(img_path))[0]+ '.tif'))
-        tif2shp(os.path.join(args.save_path, os.path.splitext(os.path.basename(img_path))[0]+ '_pred.tif'), 
-                os.path.join(args.save_path, os.path.splitext(os.path.basename(img_path))[0]+ '_pred.shp'))
-        print("Finished converting the img[{}] to vector....".format(os.path.splitext(os.path.basename(img_path))[0]+ '.tif'))                
+        predict_big_test_img(model, img_path, args.palette, args.eval_m, args.save_path, args.need_gd,
+                             slide_window_size=512)
+        print("Start converting the img[{}] to vector....".format(
+            os.path.splitext(os.path.basename(img_path))[0] + '.tif'))
+        tif2shp(os.path.join(args.save_path, os.path.splitext(os.path.basename(img_path))[0] + '_pred.tif'),
+                os.path.join(args.save_path, os.path.splitext(os.path.basename(img_path))[0] + '_pred.shp'))
+        print("Finished converting the img[{}] to vector....".format(
+            os.path.splitext(os.path.basename(img_path))[0] + '.tif'))
 
 
 def write_array_to_tif_init(image_path, output_path, band_size):
@@ -106,7 +111,8 @@ def write_array_to_tif_init(image_path, output_path, band_size):
     return output_ds
 
 
-def predict_big_test_img(model, img_path, palette, eval_m, save_path, need_gd, slide_window_size=512, overlap_rate=0.25):
+def predict_big_test_img(model, img_path, palette, eval_m, save_path, need_gd, slide_window_size=512,
+                         overlap_rate=0.25):
     dataset = gdal.Open(img_path)
     width = dataset.RasterXSize
     height = dataset.RasterYSize
@@ -162,9 +168,10 @@ def predict_big_test_img(model, img_path, palette, eval_m, save_path, need_gd, s
     total_progress = len(x_idx) * len(y_idx)
     count = 0
     for x_start in x_idx:
-        for y_start in y_idx: 
+        for y_start in y_idx:
             count += 1
-            print("Start predict the img[{}], the prograss is [{}%]".format(file_name+".tif", round((count/total_progress)*100, 2)))
+            print("Start predict the img[{}], the prograss is [{}%]".format(file_name + ".tif",
+                                                                            round((count / total_progress) * 100, 2)))
             croped_img = img[x_start:x_start + cut_height, y_start:y_start + cut_width]
             if band > 3:
                 croped_img = croped_img[:, :, 0:3]
@@ -207,7 +214,8 @@ def predict_big_test_img(model, img_path, palette, eval_m, save_path, need_gd, s
             output_tif.GetRasterBand(1).WriteArray(result[0].astype(np.uint8), y_start, x_start)
 
     if eval_m:
-        l_dataset = gdal.Open(os.path.join(os.path.dirname(os.path.dirname(img_path)), "labels", os.path.basename(img_path)))
+        l_dataset = gdal.Open(
+            os.path.join(os.path.dirname(os.path.dirname(img_path)), "labels", os.path.basename(img_path)))
         label = l_dataset.ReadAsArray(0, 0, l_dataset.RasterXSize, l_dataset.RasterYSize)
         all_acc, acc, iou = eval_metrics(
             output_img,
@@ -216,13 +224,15 @@ def predict_big_test_img(model, img_path, palette, eval_m, save_path, need_gd, s
             ignore_index=255,
             metrics='mIoU',
             nan_to_num=-1)
-        print("Img[{}]==>Iou[{}]==>mIou[{}]==>all_acc[{}]".format(os.path.basename(img_path), iou, 
-                                                        iou.sum() / num_classes,
-                                                        all_acc))
+        print("Img[{}]==>Iou[{}]==>mIou[{}]==>all_acc[{}]".format(os.path.basename(img_path), iou,
+                                                                  iou.sum() / num_classes,
+                                                                  all_acc))
         with open(os.path.join(save_path, "img_iou.txt"), "a") as F:
             F.write("Img[{}]==>Iou[{}]==>mIou[{}]==>all_acc[{}]".format(os.path.basename(img_path), iou,
-                                                        iou.sum() / num_classes,
-                                                        all_acc))
+                                                                        iou.sum() / num_classes,
+                                                                        all_acc))
             F.write("\n")
+
+
 if __name__ == '__main__':
     main()
